@@ -529,8 +529,8 @@ class Root(Tk):
         #Create dropdown for difficulty level (3 most difficult, 2 moderate, 1 easy)
         self.clicked_difficulty = tk.StringVar()
         self.clicked_difficulty.set('easy')
-        self.clicked_difficulty = ttk.OptionMenu(self, self.clicked_difficulty,'easy','easy', 'moderate', 'difficult')
-        self.clicked_difficulty.grid(column = 1, row = 17, sticky = E, columnspan = 5)
+        self.drop_difficulty = ttk.OptionMenu(self, self.clicked_difficulty,'easy','easy', 'moderate', 'difficult')
+        self.drop_difficulty.grid(column = 1, row = 17, sticky = E, columnspan = 5)
         
         #entry box for weightage
         self.weightage= tk.StringVar()
@@ -538,12 +538,12 @@ class Root(Tk):
         self.weightagebox.focus()
         self.weightagebox.grid(column=1, row=18,columnspan = 4)
         
-        #Create dropdown for difficulty level (3 fully prepared, 2 some what prepared, 1 not prepared)
-        self.clicked_difficulty = tk.StringVar()
-        self.clicked_difficulty.set('fully prepared')
-        self.clicked_difficulty = ttk.OptionMenu(self, self.clicked_difficulty,'fully prepared','fully prepared', 'some what prepared', 'not prepared')
-        self.clicked_difficulty.grid(column = 1, row = 19, sticky = E, columnspan = 5)
-        
+        #Create dropdown for prep level (3 fully prepared, 2 some what prepared, 1 not prepared)
+        self.clicked_prep = tk.StringVar()
+        self.clicked_prep.set('fully prepared')
+        self.drop_prep = ttk.OptionMenu(self, self.clicked_prep,'fully prepared','fully prepared', 'some what prepared', 'not prepared')
+        self.drop_prep.grid(column = 1, row = 19, sticky = E, columnspan = 5)
+
 
     def save_mainpageentry(self):
         
@@ -619,7 +619,7 @@ class Root(Tk):
             self.day_name = calendar.day_name[datetime.datetime.strptime(self.date_formatted,'%d %m %Y').weekday()]
 
             #calculate the time required to study
-            self.diff_D = (self.clicked_endhours.get())
+            self.diff_D = (self.clicked_difficulty.get())
             if self.diff_D == 'easy':
                 self.diff_D = 1;
             if self.diff_D == 'moderate':
@@ -627,7 +627,7 @@ class Root(Tk):
             if self.diff_D == 'difficult':
                 self.diff_D = 3;
             
-            self.prep_P = (self.clicked_endhours.get())
+            self.prep_P = (self.clicked_prep.get())
             if self.prep_P == 'not prepared':
                 self.prep_P = 1;
             if self.prep_P == 'some what prepared':
@@ -644,7 +644,7 @@ class Root(Tk):
             elif (self.weightage == ""):
                 tk.messagebox.showinfo("Warning","Please enter the task weightage")
             else:
-                #calculate the required time 
+                #calculate the required time                
                 self.requiredTime = (k2*int(self.diff_D)) + (k3*int(self.taskweightage)) + (k4/int(self.prep_P))
                 
                 #print summary
