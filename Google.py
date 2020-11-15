@@ -5,6 +5,10 @@ from google_auth_oauthlib.flow import Flow, InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from google.auth.transport.requests import Request
+from Task import *
+
+global eventId
+eventId = []
 
 
 def Create_Service(client_secret_file, api_name, api_version, *scopes):
@@ -44,37 +48,50 @@ def Create_Service(client_secret_file, api_name, api_version, *scopes):
 
 
 def convert_to_RFC_datetime(year=1900, month=1, day=1, hour=0, minute=0):
-    dt = datetime.datetime(year, month, day, hour, minute, 0).isoformat()
+    dt = datetime(year, month, day, hour, minute, 0).isoformat()
+    print(dt)
     return dt
 
-eventId = {}
+
 """
 Function that adds an event
 """
-def add_event(service):
+def add_event(service, task):
     event = {
-        'summary': 'Assignment',
-        'description': 'The assignment is',
+        'summary': task.name,  
+        'description': task.description,
         'start': {
-            'dateTime': convert_to_RFC_datetime(2020, 11, 13, 12, 30),
+            'dateTime': convert_to_RFC_datetime(task.start_time[0], task.start_time[1], 
+                                                task.start_time[2], task.start_time[3], task.start_time[4]),
             'timeZone': 'America/Vancouver'
         },
         'end': {
-            'dateTime': convert_to_RFC_datetime(2020, 11, 13, 15, 30),
+            'dateTime': convert_to_RFC_datetime(task.end_time[0], task.end_time[1], 
+                                                task.end_time[2], task.end_time[3], task.end_time[4]),
             'timeZone': 'America/Vancouver'
         },
     }
 
     response = service.events().insert(
-    calendarId='primary',
-    body=event
+        calendarId='primary',
+        body=event
     ).execute()
-    #Change eventId to increment
-    eventId[0] = response['id']
+    
+    
+    eventId.append(response['id'])
+
+
+def schedule_events(service, taskList):
+    for task in taskList:
+        add_event(service, task)
 
 
 """
 Function that deletes an event 
 """
-def delete_event(service):
-    service.events().delete(calendarId='primary', eventId=eventId[0]).execute()
+def delete_events(service):
+    for events in eventId:
+        service.events().delete(calendarId='primary', eventId=events).execute()
+        
+    eventId.clear()
+    

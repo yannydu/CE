@@ -1,0 +1,59 @@
+class Task:
+    
+    # Constructor
+    def __init__(self, name, description, difficulty, total_time, due_date, start_time, end_time):
+        self.name = name
+        self.description = description
+        self.difficulty = difficulty
+        self.total_time = total_time
+        self.due_date = due_date
+        self.start_time = start_time
+        self.end_time = end_time
+
+
+    # Create Setters and Getters for Task variables
+      
+    #Setters
+    def set_name(self,value):
+        self.name = value
+    
+    def set_description(self, value):
+        self.description = value
+    
+    def set_difficulty(self, value):
+        self.difficulty = value
+    
+    def set_total_time(self, value):
+        self.total_time = value
+    
+    def set_due_date(self, value):
+        self.due_date = value
+    
+    def set_start_time(self, value):
+        self.start_time = value
+    
+    def set_end_time(self, value):
+        self.end_time = value
+        
+    #Getters
+    def get_name(self):
+        return self.name
+    
+    def get_description(self):
+        return self.description
+    
+    def get_difficulty(self):
+        return self.difficulty
+    
+    def get_total_time(self):
+        return self.total_time
+    
+    def get_due_date(self):
+        return self.due_date
+    
+    def get_start_time(self):
+        return self.start_time
+    
+    def get_end_time(self):
+        return self.end_time
+  
