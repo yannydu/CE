@@ -1,19 +1,7 @@
 import math
 from datetime import datetime, date, timedelta
 
-class Task:
-    
-    # Constructor
-    """
-    def __init__(self, name, description, total_time, due_date, start_time, end_time):
-        self.name = name
-        self.description = description
-        self.total_time = total_time
-        self.due_date = due_date
-        self.start_time = start_time
-        self.end_time = end_time
-    """
-    
+class Task: 
     def __init__(self, name, description, total_time, due_date, due_time):
         self.name = name
         self.description = description
@@ -99,7 +87,13 @@ class Task:
         print(self.start_time)
         print(self.end_time)
    
-        
+def sortTaskDuedate(duedate):
+    return duedate.due_date
+                
+def sortTaskDuetime(duetime):
+    return duetime.due_time   
+   
+"""        
 # Compares the time1 to time2 in the time format h:m:s   
 # Returns 0 if time1 <= time2 or 1 if time1 > time2 
 def compareTimes(time1, time2):
@@ -109,7 +103,7 @@ def compareTimes(time1, time2):
         return 0 
     else:
         return 1
-    
+"""
 
 # Find the difference of the work times in hours
 def availableWorkTime(startTime, endTime):
@@ -146,20 +140,27 @@ def taskAllocater(taskList, workTimeList):
         day_date_time = now.strftime("%d/%m/%Y %H:%M:%S")
         day_of_week = date.today().weekday()
         
-        # Trying this
+        # Setting day_date_time to start of tomorrow's start time
+        day_of_week = (day_of_week+1) % 7 
         now = now + timedelta(days=1)
         now = now.replace(hour=int(workTimeList[day_of_week][0][0:2]),
                           minute=int(workTimeList[day_of_week][0][3:5]), second=0)
         day_date_time = now.strftime("%d/%m/%Y %H:%M:%S")
-        day_of_week = (day_of_week+1) % 7 
         
         i = 0
         while i < len(taskList):
             
             # Check if work time hasn't ended yet 
-            #if compareTimes(workTimeList[day_of_week][1], day_date_time[11:19]) == 0:
+            while availableWorkTime(workTimeList[day_of_week][0], workTimeList[day_of_week][1]) == 0:
+                day_of_week = (day_of_week+1) % 7 
+                now = now + timedelta(days=1)
+                now = now.replace(hour=int(workTimeList[day_of_week][0][0:2]),
+                          minute=int(workTimeList[day_of_week][0][3:5]), second=0)
+                day_date_time = now.strftime("%d/%m/%Y %H:%M:%S")
+                
+            print(workTimeList[day_of_week][0])
+            print(workTimeList[day_of_week][1])
             workTime = availableWorkTime(day_date_time[11:19], workTimeList[day_of_week][1])
-            
             # Check if there's enough work time in the day to schedule the entire task
             if workTime >= taskList[i].get_total_time():
                 # Set start time for task
@@ -195,12 +196,12 @@ def taskAllocater(taskList, workTimeList):
                 taskSplitter(taskList[i], taskList, scheduledTime, i)
                 
                 # Update the day_date_Time to the next day
+                day_of_week = (day_of_week+1) % 7 
                 now = now + timedelta(days=1)
                 now = now.replace(hour=int(workTimeList[day_of_week][0][0:2]),
                                                       minute=int(workTimeList[day_of_week][0][3:5]), second=0)
                 day_date_time = now.strftime("%d/%m/%Y %H:%M:%S")
                 # Update the day of week
-                day_of_week = (day_of_week+1) % 7 
                 i += 1 
         
       
@@ -213,7 +214,6 @@ Output: new task object with the allocated time subtracted from total estimated 
 def taskSplitter(task, taskList, setTime, i):
         # Create new task object
         new_total_time = task.get_total_time() - setTime
-        print("new total time: " + str(new_total_time))
         newTask = Task(task.get_name(), task.get_description(), new_total_time, task.get_due_date(), task.get_due_time())
         taskList.insert(i+1, newTask)
         # Copy previous task object characteristics and sub the number of setTime from total time

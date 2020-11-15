@@ -476,7 +476,7 @@ class Root(Tk):
             
             workTimeList[6][0] = convert24(self.availabilitySUNDAY[0:11])
             workTimeList[6][1] = convert24(self.availabilitySUNDAY[15:26])
-            
+                    
             self.save_availibity['state']= DISABLED
             self.save_task['state']= NORMAL
             
@@ -725,20 +725,14 @@ class Root(Tk):
                 
                 
                 
-                ######
-                ######
-                ######
+                """
+                Task Schedular call
+                """
                 # Save user input in Task object and adding to tasks to a list
                 userTask = Task(self.taskname, self.taskdescription, round(int(self.requiredTime)), self.taskdate, self.converted_endtime)
                 task_List.append(userTask)
                 
                 
-                def sortTaskDuedate(duedate):
-                    return duedate.due_date
-                
-                def sortTaskDuetime(duetime):
-                    return duetime.due_time
-                             
                 task_List.sort(key= sortTaskDuetime)
                 task_List.sort(key= sortTaskDuedate) 
                 
@@ -753,14 +747,9 @@ class Root(Tk):
                 schedule_events(service, task_List)
                 check_added = True
 
-                ######
-                ######
-                ######
-                
-                
                 
 
-                #Blank Label to print summary
+        #Blank Label to print summary
         self.availibitylabel = tk.Label(self, text = " ",anchor=W)
         self.availibitylabel.grid(column = 0, row = 21, sticky = W)
         self.availibitylabel = tk.Label(self, text = " ",anchor=W)
