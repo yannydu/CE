@@ -1,7 +1,7 @@
 # The Automatic Scheduler Program (TASP)
 
 ## Demo
-
+![TASP Demo Gif](https://user-images.githubusercontent.com/55507356/99181838-07cad900-26e6-11eb-8ec1-d4da66189f1f.gif)
 
 ## About
 
