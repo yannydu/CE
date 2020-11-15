@@ -40,13 +40,15 @@ to spend on the given task. The task is then added to the users Google Calendar 
 
 ## Work Flow
 
-	- 
-	- Allocated Time to tasks
+	- Project rolled out using agile methodology with 2 sprints
+	- 1st sprint was focused on creating the task class and ui and then understanding how to work with the Google API 
+	- 2nd sprint was focused on integrating all parts and creating a task allocation algorithm 
 
 ## Future Improvements
 
 	1. System learns from User to create better required study time equation
 	2. Improved UI design
+	3. Optimizing algorithms to improve efficieny and space
 
 ## Sources
 
