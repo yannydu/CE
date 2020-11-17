@@ -5,7 +5,7 @@
 
 ## About
 
-The TASP takes the user availability schedule and creates a study plan that helps them prepare for Assignments, Projects, or Exams.
+TASP takes the user availability schedule and creates a study plan that helps them prepare for Assignments, Projects, or Exams.
 The program prioritizes certain tasks depending on their Due Date & Due Time.
 The calculated schedule is then imported to Google Calendars automatically upon task input/submission. 
 The user may then refer to the Google calender at any given time.
