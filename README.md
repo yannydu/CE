@@ -46,10 +46,10 @@ to spend on the given task. The task is then added to the users Google Calendar 
 
 ## Future Improvements
 
-	1. System learns from User to create better required study time equation
-	2. Improved UI design
-	3. Optimizing algorithms to improve efficieny and space
-	4. Deploying the program online so that program is more easily accessable 
+	1. System learns from User to create better required study time equation.
+	2. Improved UI design.
+	3. Optimizing algorithms to improve efficieny and space.
+	4. Deploying the program online so that program is more easily accessable .
 
 ## Sources
 
